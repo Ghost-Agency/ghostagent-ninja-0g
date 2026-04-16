@@ -23,6 +23,7 @@ const nextConfig = {
       { protocol: 'https', hostname: '**.amazonaws.com' },
       { protocol: 'https', hostname: 'i.imgur.com' },
       { protocol: 'https', hostname: 'gateway.lighthouse.storage' },
+      ...(process.env.NEXT_PUBLIC_ZEROG_GATEWAY ? [{ protocol: new URL(process.env.NEXT_PUBLIC_ZEROG_GATEWAY).protocol.replace(':', ''), hostname: new URL(process.env.NEXT_PUBLIC_ZEROG_GATEWAY).hostname }] : []),
     ],
   },
   webpack: (config) => {
@@ -31,6 +32,12 @@ const nextConfig = {
       fs: false,
       net: false,
       tls: false,
+      "fs/promises": false,
+      "node:fs/promises": false,
+      "node:fs": false,
+      "util": false,
+      "path": false,
+      "crypto": false
     };
     return config;
   },

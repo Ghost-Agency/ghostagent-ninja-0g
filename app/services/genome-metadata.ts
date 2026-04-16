@@ -9,6 +9,8 @@
  * Genome is mutable by the owner; beacon is append-only history.
  */
 
+import { zeroGGatewayUrl } from './zero-g-storage';
+
 // ─── Per-SLD visual identity ──────────────────────────────────────────────────
 
 export type SldKey = 'agent' | 'openclaw' | 'molt' | 'picoclaw' | 'vault' | 'nftmail';
@@ -492,10 +494,8 @@ export function defaultGenomeMetadata(
 
 // ─── Story IPA Metadata builder ──────────────────────────────────────────────
 // Produces a Story Protocol-compliant IPA metadata JSON object.
-// Pass imageCid + characterFileCid when available (post-Lighthouse pin).
+// Pass imageCid + characterFileCid when available (post-0g pin).
 // Pass null to fall back to the SLD base image CID + empty character file.
-
-const IPFS_PREFIX = 'https://gateway.lighthouse.storage/ipfs';
 
 export interface IpaMetadata {
   title: string;
@@ -561,13 +561,13 @@ export function buildIpaMetadata(params: {
       address:             ownerAddress,
       contributionPercent: 100,
     }],
-    image:     `${IPFS_PREFIX}/${resolvedImageCid}`,
+    image:     zeroGGatewayUrl(resolvedImageCid),
     imageHash: imageHash ?? '0x0000000000000000000000000000000000000000000000000000000000000000',
-    mediaUrl:  `${IPFS_PREFIX}/${resolvedImageCid}`,
+    mediaUrl:  zeroGGatewayUrl(resolvedImageCid),
     mediaHash: imageHash ?? '0x0000000000000000000000000000000000000000000000000000000000000000',
     mediaType: 'image/svg+xml',
     aiMetadata: {
-      characterFileUrl:  `${IPFS_PREFIX}/${resolvedCharCid}`,
+      characterFileUrl:  zeroGGatewayUrl(resolvedCharCid),
       characterFileHash: characterFileHash ?? '0x0000000000000000000000000000000000000000000000000000000000000000',
       ...(legalAnchorCid ? { legalAnchorCid } : {}),
     },

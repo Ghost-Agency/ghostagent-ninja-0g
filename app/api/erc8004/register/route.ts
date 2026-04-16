@@ -40,8 +40,6 @@ const VIEM_CHAINS: Record<string, Chain> = {
   baseSepolia,
 };
 
-const LIGHTHOUSE_UPLOAD = 'https://node.lighthouse.storage/api/v0/add';
-const IPFS_GATEWAY      = 'https://gateway.lighthouse.storage/ipfs';
 
 // GNSSubnameResolver v2 — records Safe address for each agent subname at registration time
 const GNS_SUBNAME_RESOLVER = '0xc97c7166b7445a6997e22f022d58af7984be5508' as Address;
@@ -123,30 +121,7 @@ const IdentityRegistryABI = [
 
 const VALID_SLDS: SldKey[] = ['agent', 'molt', 'vault', 'nftmail', 'picoclaw', 'openclaw'];
 
-async function pinJsonToLighthouse(
-  json: object,
-  filename: string,
-  apiKey: string,
-): Promise<string | null> {
-  try {
-    const form = new FormData();
-    form.append(
-      'file',
-      new Blob([JSON.stringify(json, null, 2)], { type: 'application/json' }),
-      filename,
-    );
-    const res = await fetch(LIGHTHOUSE_UPLOAD, {
-      method: 'POST',
-      headers: { Authorization: `Bearer ${apiKey}` },
-      body: form,
-    });
-    if (!res.ok) return null;
-    const data = await res.json() as { Hash?: string };
-    return data.Hash ?? null;
-  } catch {
-    return null;
-  }
-}
+
 
 export async function POST(req: NextRequest) {
   try {

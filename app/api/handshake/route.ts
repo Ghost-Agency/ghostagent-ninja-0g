@@ -32,9 +32,7 @@ import {
 import { requestValidation, hashPayload } from '../../services/erc8004-client';
 import { GNOSIS_ADDRESSES } from '../../services/erc8004-registration';
 import { WORKER_URL } from '../../utils/config';
-
-const LIGHTHOUSE_UPLOAD = 'https://node.lighthouse.storage/api/v0/add';
-const LIGHTHOUSE_GATEWAY = 'https://gateway.lighthouse.storage/ipfs';
+import { uploadToZeroG, zeroGGatewayUrl } from '../../services/zero-g-storage';
 
 // ─── KV helpers ───────────────────────────────────────────────────────────────
 
@@ -56,26 +54,13 @@ async function kvPut(key: string, value: unknown): Promise<void> {
   });
 }
 
-// ─── IPFS pin ─────────────────────────────────────────────────────────────────
+// ─── 0G Storage pin ─────────────────────────────────────────────────────────────────
 
-async function pinToLighthouse(obj: object, filename: string): Promise<string | null> {
-  const apiKey = process.env.LIGHTHOUSE_API_KEY;
-  if (!apiKey) return null;
+async function pinToZeroG(obj: object, filename: string): Promise<string | null> {
   try {
-    const form = new FormData();
-    form.append(
-      'file',
-      new Blob([JSON.stringify(obj, null, 2)], { type: 'application/json' }),
-      filename,
-    );
-    const res = await fetch(LIGHTHOUSE_UPLOAD, {
-      method:  'POST',
-      headers: { Authorization: `Bearer ${apiKey}` },
-      body:    form,
-    });
-    if (!res.ok) return null;
-    const data = await res.json() as { Hash?: string };
-    return data.Hash ?? null;
+    const { cid } = await uploadToZeroG(JSON.stringify(obj, null, 2), filename);
+    if (!cid || cid.startsWith('0g-mock')) return null;
+    return cid;
   } catch {
     return null;
   }
@@ -309,11 +294,11 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    // 1. Pin to Lighthouse
+    // 1. Pin to 0G Storage
     const filename = `handshake-${certHash.slice(0, 10)}.json`;
-    const ipfsCid  = await pinToLighthouse(signed, filename);
+    const ipfsCid  = await pinToZeroG(signed, filename);
     const requestUri = ipfsCid
-      ? `${LIGHTHOUSE_GATEWAY}/${ipfsCid}`
+      ? zeroGGatewayUrl(ipfsCid)
       : `${WORKER_URL}?action=kvGet&key=${handshakeKvKey(certHash)}`;
 
     // 2. Call validationRequest() on-chain via treasury wallet

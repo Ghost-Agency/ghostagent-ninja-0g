@@ -9,10 +9,11 @@
  * - Human-as-Master-Author doctrine: AI agent is tool, human directs creative output
  *
  * The signed declaration is:
- * 1. Pinned to IPFS via Lighthouse (permanent record)
+ * 1. Pinned to 0G Storage (permanent record)
  * 2. Logged to GlassBox (immutable audit trail)
  * 3. Linked to the Story Protocol IPA via aiMetadata.socialLegal CID
  */
+import { uploadToZeroG } from './zero-g-storage';
 
 export const DECLARATION_VERSION = 'v1.0-2026-03-10';
 export const CHAIN_ID = 100; // Gnosis Chain
@@ -178,7 +179,7 @@ export function buildEIP712AuthorshipMessage(doc: AuthorshipDeclarationDocument)
   };
 }
 
-// ── IPFS pin via Lighthouse ───────────────────────────────────────────────────
+// ── 0G Storage pin ───────────────────────────────────────────────────
 
 export async function pinDeclarationToIPFS(
   doc: AuthorshipDeclarationDocument,
@@ -201,26 +202,11 @@ export async function pinDeclarationToIPFS(
     governingLaw: 'Electronic Transactions (Victoria) Act 2000 (Vic) s.9; Copyright Act 1968 (Cth)',
   };
 
-  const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
-  const form = new FormData();
-  form.append(
-    'file',
-    blob,
-    `authorship-declaration-${doc.params.agentName}-${doc.timestamp}.json`,
-  );
-
-  const apiKey = process.env.LIGHTHOUSE_API_KEY;
-  if (!apiKey) throw new Error('LIGHTHOUSE_API_KEY not set');
-
-  const res = await fetch('https://node.lighthouse.storage/api/v0/add', {
-    method: 'POST',
-    headers: { Authorization: `Bearer ${apiKey}` },
-    body: form,
-  });
-
-  if (!res.ok) throw new Error(`Lighthouse pin failed: ${res.status}`);
-  const data = await res.json() as { Hash: string };
-  return `ipfs://${data.Hash}`;
+  const jsonStr = JSON.stringify(payload, null, 2);
+  const { cid } = await uploadToZeroG(jsonStr, `authorship-declaration-${doc.params.agentName}-${doc.timestamp}.json`);
+  
+  if (!cid) throw new Error(`0G Storage pin failed`);
+  return `0g://${cid}`;
 }
 
 // ── GlassBox log ──────────────────────────────────────────────────────────────

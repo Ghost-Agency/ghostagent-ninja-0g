@@ -18,6 +18,7 @@ import {
 } from '../../services/erc8004-registration';
 import { type SldKey } from '../../services/genome-metadata';
 import { WORKER_URL } from '../../utils/config';
+import { zeroGGatewayUrl } from '../../services/zero-g-storage';
 
 const CHAIN_IDS: Record<string, number> = {
   gnosis:      100,
@@ -130,7 +131,7 @@ export async function GET(req: NextRequest) {
       if (profile.staticCardCid && typeof profile.staticCardCid === 'string') {
         const ext = regFile as unknown as Record<string, unknown>;
         ext.staticCardCid = profile.staticCardCid;
-        ext.staticCardUrl = `https://gateway.lighthouse.storage/ipfs/${profile.staticCardCid}`;
+        ext.staticCardUrl = zeroGGatewayUrl(profile.staticCardCid);
       }
     }
   } catch {

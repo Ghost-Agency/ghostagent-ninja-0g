@@ -5,9 +5,9 @@
 /// and referenced by agentURI on the Identity Registry.
 
 import { SLD_VISUAL, type SldKey } from './genome-metadata';
+import { zeroGGatewayUrl } from './zero-g-storage';
 
 export const APP_DOMAIN = process.env.NEXT_PUBLIC_APP_URL ?? 'https://ghostagent.ninja';
-export const IPFS_GATEWAY = 'https://gateway.lighthouse.storage/ipfs';
 
 // ─── ERC-8004 Contract Addresses ─────────────────────────────────────────────
 // Same addresses on all mainnets; same addresses (different) on all testnets.
@@ -232,7 +232,7 @@ export function buildErc8004RegistrationFile(params: {
     type: 'https://eips.ethereum.org/EIPS/eip-8004#registration-v1',
     name: fullName,
     description: `${visual.label} AI Agent on GhostAgent Protocol. Sovereign identity: ${fullName}. ${visual.tagline}`,
-    image: `${IPFS_GATEWAY}/${resolvedImageCid}`,
+    image: zeroGGatewayUrl(resolvedImageCid),
     services,
     mcpServers: MCP_BY_SLD[sld] ?? MCP_CORE,
     x402Support: true,

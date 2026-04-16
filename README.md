@@ -1,6 +1,6 @@
-# GhostAgent.ninja — ERC-8004 Trustless Agent Identity on Gnosis Chain
+# GhostAgent.ninja — Sovereign Agent Identity on 0G & Gnosis Chain
 
-> Synthesis Hackathon 2026 · [Demo Video](https://youtu.be/4vDR0ULbjy0) · [Live](https://ghostagent.ninja) · [Trust Oracle](https://notapaperclip.red)
+> 0G APAC Hackathon · [Demo Video](TBD) · [Live](https://ghostagent.ninja) · [Trust Oracle](https://notapaperclip.red)
 
 **Without this system, 10,000+ Gnosis Safes remain anonymous hex strings. With it, they are identities.**
 
@@ -19,6 +19,40 @@ This breaks A2A (agent-to-agent) trust. When `ghostagent` instructs `victor` to 
 ---
 
 ## What We Built
+
+For the **0G APAC Hackathon**, we migrated the entire GhostAgent storage layer and SpaceID identity module natively onto the **0G modular data availability** infra. This removes our previous reliance on Lighthouse IPFS and solidifies a truly sovereign data storage process across agent identities, inboxes, and metadata records natively onto 0G.
+
+### Architecture Framework
+
+```text
+┌─────────────────────────────────────────────────────────────┐
+│                    ghostagent.ninja (Next.js)                │
+│                                                             │
+│  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌────────────┐  │
+│  │ Mint Flow│  │ Beacon   │  │Handshake │  │ ERC-8004   │  │
+│  │          │  │ Metadata │  │ Certs    │  │ Register   │  │
+│  └────┬─────┘  └────┬─────┘  └────┬─────┘  └─────┬──────┘  │
+│       │             │             │               │         │
+│       └─────────────┴─────────────┴───────────────┘         │
+│                          │                                  │
+│              ┌───────────▼───────────┐                      │
+│              │  zero-g-storage.ts    │  ◄── 0G ADAPTER      │
+│              │  uploadToZeroG()      │                      │
+│              │  zeroGGatewayUrl()    │                      │
+│              └───────────┬───────────┘                      │
+└──────────────────────────┼──────────────────────────────────┘
+                           │
+              ┌────────────▼────────────┐
+              │      0G Storage         │  ◄── REPLACES IPFS
+              │  (Decentralized DA)     │
+              └────────────┬────────────┘
+                           │
+              ┌────────────▼────────────┐
+              │      0G Chain           │
+              │  GhostAgentStorageLog   │  ◄── CHAIN LOGGER
+              │  (logs rootHash events) │
+              └─────────────────────────┘
+```
 
 Three live agents, a trust oracle, and a sovereign email system — all wired together on-chain.
 
@@ -81,7 +115,15 @@ curl "https://notapaperclip.red/api/agent-lookup?q=ghostagent"
 
 ---
 
-## Live Contracts (Gnosis Mainnet, chain 100)
+## Live Contracts
+
+### 0G Newton Testnet
+| Contract | Address |
+|---|---|
+| GhostAgentStorageLog | `0x8378054ffFac40f795dbA039156535eb953b3356` |
+| MinimalERC6551Account | `0xD21134524F02F5FbA2d83891C1EE0b60943E1d47` |
+
+### Gnosis Mainnet (chain 100)
 
 | Contract | Address |
 |---|---|
@@ -133,9 +175,12 @@ npm install
 npm run dev
 ```
 
-Key env vars: `LIGHTHOUSE_API_KEY`, `WEBHOOK_SECRET`, `NEXT_PUBLIC_WORKER_URL`, `NEXT_PUBLIC_PRIVY_APP_ID`
+Key env vars for 0G:
+- `ZEROG_PRIVATE_KEY`
+- `ZEROG_STORAGE_NODE` (e.g. `https://rpc-testnet.0g.ai`)
+- `NEXT_PUBLIC_ZEROG_GATEWAY`
 
-See `env.example` for the full list.
+See `env.example` for the full list of legacy variables.
 
 ---
 

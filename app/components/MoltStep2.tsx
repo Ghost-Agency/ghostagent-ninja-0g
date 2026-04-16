@@ -147,6 +147,7 @@ export function MoltStep2({ sourceAgentName, onSelect, onBack }: MoltStep2Props)
             >
               <option value="molt.gno">.molt.gno</option>
               <option value="agent.gno">.agent.gno</option>
+              <option value="0g">.0g (SpaceID)</option>
             </select>
           </div>
           <button

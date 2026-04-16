@@ -1,6 +1,8 @@
 /// @module ip-transfer-agreement
 /// Generates EIP-712 typed data for marketplace IP transfer agreements.
-/// The signed hash is pinned to IPFS and logged to GlassBox.
+/// The signed hash is pinned to 0G Storage and logged to GlassBox.
+
+import { uploadToZeroG } from './zero-g-storage';
 
 export const AGREEMENT_VERSION = 'v1.1-2026-03-10';
 export const CHAIN_ID = 100; // Gnosis Chain
@@ -148,7 +150,7 @@ export function buildEIP712Message(doc: AgreementDocument) {
   };
 }
 
-// ── IPFS pin via Lighthouse ───────────────────────────────────────────────────
+// ── 0G Storage pin ───────────────────────────────────────────────────
 
 export async function pinAgreementToIPFS(
   doc: AgreementDocument,
@@ -166,22 +168,11 @@ export async function pinAgreementToIPFS(
     eip712Signature: signature,
   };
 
-  const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
-  const form = new FormData();
-  form.append('file', blob, `ip-transfer-${doc.params.agentName}-${doc.timestamp}.json`);
-
-  const apiKey = process.env.LIGHTHOUSE_API_KEY;
-  if (!apiKey) throw new Error('LIGHTHOUSE_API_KEY not set');
-
-  const res = await fetch('https://node.lighthouse.storage/api/v0/add', {
-    method: 'POST',
-    headers: { Authorization: `Bearer ${apiKey}` },
-    body: form,
-  });
-
-  if (!res.ok) throw new Error(`Lighthouse pin failed: ${res.status}`);
-  const data = await res.json() as { Hash: string };
-  return `ipfs://${data.Hash}`;
+  const jsonStr = JSON.stringify(payload, null, 2);
+  const { cid } = await uploadToZeroG(jsonStr, `ip-transfer-${doc.params.agentName}-${doc.timestamp}.json`);
+  
+  if (!cid) throw new Error(`0G Storage pin failed`);
+  return `0g://${cid}`;
 }
 
 // ── GlassBox log ──────────────────────────────────────────────────────────────

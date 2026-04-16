@@ -238,7 +238,7 @@ export async function POST(req: NextRequest) {
     // Step 3: Track molt path + re-pin beacon metadata (non-fatal)
     const xdaiBurned = action === 'upgrade' ? 38 : 0; // 14 one-off + 24 annual
     const APP_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://ghostagent.ninja';
-    const LIGHTHOUSE_API_KEY = process.env.LIGHTHOUSE_API_KEY;
+    const ZEROG_PRIVATE_KEY = process.env.ZEROG_PRIVATE_KEY;
 
     let moltPathResult: Awaited<ReturnType<typeof trackEvolve>> | null = null;
     try {
@@ -257,7 +257,7 @@ export async function POST(req: NextRequest) {
           repinBeacon: true,
         },
         WEBHOOK_SECRET,
-        LIGHTHOUSE_API_KEY,
+        ZEROG_PRIVATE_KEY,
       );
     } catch {
       // Non-fatal — tier upgrade already committed

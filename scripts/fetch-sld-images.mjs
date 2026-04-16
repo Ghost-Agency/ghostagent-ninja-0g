@@ -11,7 +11,7 @@ import { fileURLToPath } from 'url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const OUT_DIR = join(__dirname, '..', 'public', 'sld-images');
-const GATEWAY = 'https://gateway.lighthouse.storage/ipfs';
+const GATEWAY = process.env.NEXT_PUBLIC_ZEROG_GATEWAY || 'https://cloudflare-ipfs.com/ipfs';
 
 const SLD_IMAGES = {
   agent:    'bafkreihdpulp5riv3dkhtomi2iurgeypvplhdsi3nnkumzmvx725xc4yly',

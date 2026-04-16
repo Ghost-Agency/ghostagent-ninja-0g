@@ -389,6 +389,13 @@ const WHITELISTED_COLLECTIONS: WhitelistedCollection[] = [
     rpcUrl: 'https://mainnet.base.org',
     displayName: 'Chonks',
   },
+  {
+    assignedName: '0g',
+    chainId: 16600,
+    contractAddress: '0x0000000000000000000000000000000000000000', // Update with actual 0G SpaceID registry
+    rpcUrl: 'https://rpc.0g.ai', // Or equivalent testnet/mainnet URL
+    displayName: '0G Names (.0g)',
+  },
   // Add more collections here:
   // { assignedName: 'punk', chainId: 1, contractAddress: '0xb47e...', rpcUrl: 'https://eth.llamarpc.com', displayName: 'CryptoPunks' },
 ];

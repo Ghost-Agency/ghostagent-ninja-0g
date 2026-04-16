@@ -269,58 +269,36 @@ function generateSvgDataUri(
   return `data:image/svg+xml;base64,${Buffer.from(svg).toString('base64')}`;
 }
 
-// ─── IPFS Pinning via Lighthouse ──────────────────────────────────────────────
+// ─── 0G Storage Pinning ──────────────────────────────────────────────
 
-const LIGHTHOUSE_UPLOAD_URL = 'https://node.lighthouse.storage/api/v0/add';
-const IPFS_GATEWAY = 'https://gateway.lighthouse.storage/ipfs';
+import { uploadToZeroG } from './zero-g-storage';
 
 /**
- * Pin JSON metadata to IPFS via Lighthouse.
- * If LIGHTHOUSE_API_KEY is not set, uses the public unauthenticated endpoint
- * (works for small files, no persistence guarantee — use key for production).
+ * Pin JSON metadata to 0G Storage.
+ * The apiKey parameter is retained for backwards compatibility with existing callers.
  */
 export async function pinToIPFS(
   metadata: BeaconMetadata,
-  apiKey?: string,
+  apiKey?: string, // Remnant from Lighthouse, not strictly needed for 0G
 ): Promise<PinResult | null> {
   const json = JSON.stringify(metadata, null, 2);
-  const blob = new Blob([json], { type: 'application/json' });
-
-  const form = new FormData();
-  form.append('file', blob, 'beacon-metadata.json');
-
-  const headers: Record<string, string> = {};
-  if (apiKey) {
-    headers['Authorization'] = `Bearer ${apiKey}`;
-  }
 
   try {
-    const res = await fetch(LIGHTHOUSE_UPLOAD_URL, {
-      method: 'POST',
-      headers,
-      body: form,
-    });
+    const { cid, url } = await uploadToZeroG(json, 'beacon-metadata.json');
 
-    if (!res.ok) {
-      console.warn(`[beacon-metadata] Lighthouse pin failed (${res.status}) — continuing without IPFS`);
-      return null;
-    }
-
-    const data = await res.json() as { Hash?: string; Name?: string };
-    const cid = data.Hash;
-    if (!cid) {
-      console.warn(`[beacon-metadata] Lighthouse response missing Hash — continuing without IPFS`);
+    if (!cid || cid.startsWith('0g-mock')) {
+      console.warn(`[beacon-metadata] 0G Storage pin failed (Mock) — continuing`);
       return null;
     }
 
     return {
       cid,
-      url: `${IPFS_GATEWAY}/${cid}`,
-      gateway: 'lighthouse.storage',
+      url,
+      gateway: '0g-storage',
       pinnedAt: Date.now(),
     };
   } catch (err) {
-    console.warn(`[beacon-metadata] Lighthouse pin threw — continuing without IPFS:`, err);
+    console.warn(`[beacon-metadata] 0G Storage pin threw:`, err);
     return null;
   }
 }
