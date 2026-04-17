@@ -6,6 +6,8 @@ import { MarketplaceFilters, type Filters } from '../../components/MarketplaceFi
 import XMTPBadge from '../../components/XMTPBadge';
 import SwarmModeBadge from '../../components/SwarmModeBadge';
 import A2ACardModal from '../../../components/A2ACardModal';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useSFX } from '../../hooks/useSFX';
 
 const GHOST_LOGO = '/ghost-logo.png';
 
@@ -151,6 +153,7 @@ const PRIVACY_META: Record<PrivacyStatus, { icon: string; label: string; color: 
 // ─── Item card ────────────────────────────────────────────────────────────────
 
 function ItemCard({ item, onViewA2A, onBuy, isBuying }: { item: MarketItem; onViewA2A: () => void; onBuy: () => void; isBuying: boolean }) {
+  const { playClick } = useSFX();
   const badge    = TYPE_BADGE[item.type];
   const nsColor  = NS_COLOR[item.namespace] ?? 'text-zinc-300 bg-zinc-500/10';
   const ns       = NS_THEME[item.namespace] ?? NS_FALLBACK_THEME;
@@ -162,7 +165,18 @@ function ItemCard({ item, onViewA2A, onBuy, isBuying }: { item: MarketItem; onVi
     : 'text-amber-300 bg-amber-500/10 ring-amber-500/20';
 
   return (
-    <div className={`flex flex-col justify-between rounded-2xl border p-5 transition hover:brightness-110 ${ns.border} ${ns.bg}`}>
+    <motion.div 
+      layout
+      initial={{ opacity: 0, scale: 0.9, y: 20 }}
+      animate={{ opacity: 1, scale: 1, y: 0 }}
+      exit={{ opacity: 0, scale: 0.9, y: -20 }}
+      whileHover={{ scale: 1.02, y: -5 }}
+      transition={{ duration: 0.2 }}
+      onMouseEnter={playClick}
+      className={`group relative flex flex-col justify-between rounded-2xl border p-5 overflow-hidden backdrop-blur-xl shadow-lg transition-all ${ns.border} bg-black/40 hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]`}
+    >
+      <div className={`absolute inset-0 opacity-40 transition-all duration-500 ease-out group-hover:opacity-80 ${ns.bg}`}></div>
+      <div className="relative z-10 w-full h-full flex flex-col justify-between">
       <div>
         {/* Title row */}
         <div className="flex items-start justify-between gap-2">
@@ -299,7 +313,8 @@ function ItemCard({ item, onViewA2A, onBuy, isBuying }: { item: MarketItem; onVi
           </div>
         </div>
       </div>
-    </div>
+      </div>
+    </motion.div>
   );
 }
 
@@ -315,7 +330,7 @@ export default function MarketplacePage() {
   const [buying, setBuying]     = useState<string | null>(null);
 
   function updateFilters(next: Partial<Filters>) {
-    setFilters(prev => ({ ...prev, ...next }));
+    setFilters((prev: Filters) => ({ ...prev, ...next }));
   }
 
   const filtered = DEMO_ITEMS.filter(item => {
@@ -363,14 +378,19 @@ export default function MarketplacePage() {
     <div className="max-w-5xl space-y-6">
 
       {/* Header */}
-      <div className="flex items-center justify-between gap-3">
+      <div className="flex items-center justify-between gap-3 relative">
+        <div className="absolute -inset-10 bg-amber-500/10 blur-[80px] rounded-full -z-10 pointer-events-none"></div>
         <div className="flex items-center gap-3">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={GHOST_LOGO} alt="" className="h-28 w-28 object-contain drop-shadow-[0_0_18px_rgba(184,134,97,0.4)]" />
+          <motion.img 
+            animate={{ y: [0, -10, 0] }}
+            transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}
+            src={GHOST_LOGO} alt="" className="h-28 w-28 object-contain drop-shadow-[0_0_25px_rgba(217,119,6,0.5)] contrast-125 saturate-150" 
+          />
           <div>
-            <h1 className="pl-1 text-2xl font-bold text-[#f2eee4]">Marketplace</h1>
-            <p className="mt-1 pl-1 text-sm text-[var(--muted)]">
-              Hire agents, buy bodies &amp; bundles. Filter by domain, molt level, or privacy.
+            <h1 className="pl-1 text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-amber-100 via-amber-400 to-amber-700 uppercase tracking-tight">Marketplace</h1>
+            <p className="mt-1 pl-1 text-xs text-[var(--muted)] font-mono max-w-sm">
+              Hire agents, buy bodies &amp; bundles. Filter by domain, molt level, or privacy architecture. All transactions settled on 0G Chain constraints.
             </p>
           </div>
         </div>
@@ -384,8 +404,9 @@ export default function MarketplacePage() {
       />
 
       {/* Grid */}
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {filtered.map(item => (
+      <motion.div layout className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <AnimatePresence mode="popLayout">
+          {filtered.map(item => (
           <ItemCard
             key={`${item.agent}-${item.title}`}
             item={item}
@@ -394,6 +415,7 @@ export default function MarketplacePage() {
             isBuying={buying === item.agent}
           />
         ))}
+        </AnimatePresence>
 
         {a2aAgent && (
           <A2ACardModal
@@ -402,7 +424,7 @@ export default function MarketplacePage() {
             onClose={() => setA2aAgent(null)}
           />
         )}
-      </div>
+      </motion.div>
 
       {filtered.length === 0 && (
         <div className="rounded-2xl border border-[rgba(176,128,92,0.35)] bg-[var(--card)] p-8 text-center">

@@ -4,6 +4,8 @@
 /// All calculations are pure functions — no side effects.
 /// Call recordTrade() after each DEX execution, then computeMetrics() for dashboard.
 
+import { uploadToZeroG } from './zero-g-storage';
+
 export interface TradeRecord {
   id:        string;
   agentName: string;
@@ -175,4 +177,16 @@ export function buildTradeRecord(params: {
     timestamp:  Date.now(),
     txHash:     params.txHash,
   };
+}
+
+/**
+ * Pushes the highly critical PerformanceMetrics natively to 0G storage
+ * to act as the Verifiable Reputation layer on the marketplace.
+ */
+export async function saveReputationToZeroG(metrics: PerformanceMetrics): Promise<{ cid: string, url: string } | null> {
+  if (!metrics || !metrics.agentName) return null;
+  const payloadString = JSON.stringify(metrics, null, 2);
+  const filename = `reputation-${metrics.agentName}-${metrics.computedAt}.json`;
+  const result = await uploadToZeroG(payloadString, filename);
+  return result;
 }
