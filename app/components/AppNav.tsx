@@ -6,6 +6,7 @@ import { useState } from 'react';
 
 const NAV = [
   { href: '/about', label: 'About' },
+  { href: '/faq', label: 'How it Works' },
   { href: '/dashboard', label: 'Dashboard' },
   { href: '/dashboard/marketplace', label: 'Marketplace' },
   { href: '/agents?tab=mint', label: 'Mint Agent ID' },

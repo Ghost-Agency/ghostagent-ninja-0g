@@ -114,8 +114,8 @@ export function MoltModal({ agentName, currentIdentity, ownerWallet, onClose, on
         {/* Header */}
         <div className="flex items-center justify-between border-b border-[rgba(176,128,92,0.15)] px-5 py-4">
           <div className="flex items-center gap-3">
-            <div className="flex h-7 w-7 items-center justify-center rounded-full bg-amber-500/15 text-sm">
-              🐛
+            <div className="flex h-7 w-7 items-center justify-center rounded-full bg-amber-500/15">
+              <img src="/molt-icon.png" alt="Molt" className="h-4 w-4 object-contain" />
             </div>
             <div>
               <div className="text-sm font-semibold text-white">Molt Identity</div>

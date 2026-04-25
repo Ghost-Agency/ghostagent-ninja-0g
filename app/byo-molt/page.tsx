@@ -769,6 +769,19 @@ export default function OgNftMoltPage() {
                   <p className="text-[10px] text-[var(--muted)]">{nftPreview.chain === 'base' ? 'Base' : 'Ethereum'} · token #{nftPreview.tokenId}</p>
                 </div>
               </div>
+              
+              <div className="rounded-xl border border-red-500/30 bg-red-500/10 p-4">
+                <h3 className="text-sm font-bold text-red-400 flex items-center gap-2">
+                  ⚠️ NEW NFT CONTROLS ALL HISTORY
+                </h3>
+                <p className="mt-2 text-xs text-red-300 leading-relaxed">
+                  By completing this molt, your legacy NFT becomes the <strong>master key</strong> to your Gnosis Safe, email inbox, and complete history.
+                </p>
+                <p className="mt-2 text-[10px] text-[var(--muted)]">
+                  If you transfer or sell this NFT later, the new owner will inherit all your past emails and OTP logins. Use the <a href="https://nftmail.box/dashboard" target="_blank" rel="noopener noreferrer" className="underline hover:text-red-200">Sovereign Burn</a> feature on the nftmail.box dashboard to wipe data before selling.
+                </p>
+              </div>
+
               {/* Coupon OR payment */}
               <div className="rounded-xl border border-[rgba(176,128,92,0.15)] bg-black/20 p-3 space-y-3">
                 <div>

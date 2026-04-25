@@ -147,6 +147,18 @@ export function MarketplaceTransferAgreement({
         {/* Agreement text — hidden once done */}
         {step !== 'done' && (
           <div className="flex-1 overflow-y-auto px-6 py-4">
+            <div className="mb-4 rounded-xl border border-red-500/30 bg-red-500/10 p-4">
+              <h3 className="text-sm font-bold text-red-400 flex items-center gap-2">
+                ⚠️ CRITICAL WARNING: YOU ARE SELLING YOUR INBOX
+              </h3>
+              <p className="mt-2 text-xs text-red-300 leading-relaxed">
+                Transferring this NFT transfers the <strong>full email inbox, complete history, and all OTP logins</strong> associated with it. 
+                The buyer will inherit the account's state entirely.
+              </p>
+              <p className="mt-2 text-[10px] text-[var(--muted)]">
+                If you do not want the buyer to see your emails, you must execute a <a href="https://nftmail.box/dashboard" target="_blank" rel="noopener noreferrer" className="underline hover:text-red-200">Sovereign Burn</a> via the nftmail.box dashboard to wipe your history before signing this agreement.
+              </p>
+            </div>
             <pre className="whitespace-pre-wrap font-mono text-[10px] leading-relaxed text-[#a09080]">
 {`MARKETPLACE IP TRANSFER AGREEMENT
 Version: v1.0-2026-03-09

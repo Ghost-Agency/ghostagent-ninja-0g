@@ -52,8 +52,13 @@ export function DashboardAgentCard({ agent, onMoltComplete }: DashboardAgentCard
         {/* Header row */}
         <div className="flex items-start justify-between gap-3">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[rgba(176,128,92,0.1)] text-lg">
-              🤖
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[rgba(176,128,92,0.1)]">
+              <img 
+                src={`/levels/${agent.tier === 'pro' ? 'imago' : agent.tier === 'lite' ? 'pupa' : agent.tier}.png`} 
+                alt={agent.tier} 
+                className="h-8 w-8 object-contain" 
+                onError={(e) => { (e.target as any).src = '/levels/larva.png' }}
+              />
             </div>
             <div>
               <div className="flex items-center gap-2">
@@ -74,14 +79,25 @@ export function DashboardAgentCard({ agent, onMoltComplete }: DashboardAgentCard
             </div>
           </div>
 
-          {/* Molt button */}
-          <button
-            onClick={() => setShowMoltModal(true)}
-            className="flex items-center gap-1.5 rounded-xl border border-amber-500/25 bg-amber-500/8 px-3 py-1.5 text-[11px] font-semibold text-amber-300 transition hover:bg-amber-500/15 hover:border-amber-500/40"
-          >
-            <span>🐛</span>
-            Molt
-          </button>
+          {/* Actions */}
+          <div className="flex items-center gap-2">
+            <a
+              href="https://nftmail.box/dashboard"
+              target="_blank"
+              rel="noopener noreferrer"
+              title="Wipe email inbox before transferring"
+              className="flex items-center gap-1.5 rounded-xl border border-red-500/25 bg-red-500/8 px-3 py-1.5 text-[11px] font-semibold text-red-400 transition hover:bg-red-500/15 hover:border-red-500/40"
+            >
+              Wipe Data
+            </a>
+            <button
+              onClick={() => setShowMoltModal(true)}
+              className="flex items-center gap-1.5 rounded-xl border border-amber-500/25 bg-amber-500/8 px-3 py-1.5 text-[11px] font-semibold text-amber-300 transition hover:bg-amber-500/15 hover:border-amber-500/40"
+            >
+              <img src="/molt-icon.png" alt="Molt" className="h-3.5 w-3.5 object-contain" />
+              Molt
+            </button>
+          </div>
         </div>
 
         {/* Stats row */}

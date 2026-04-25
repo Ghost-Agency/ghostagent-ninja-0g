@@ -215,8 +215,12 @@ export default function EvolveModal({
                   <div className={`mt-0.5 text-xl font-bold ${meta.color}`}>{meta.label}</div>
                   <p className="mt-1 text-[11px] text-[var(--muted)] leading-relaxed">{meta.description}</p>
                 </div>
-                <div className="shrink-0 text-3xl select-none">
-                  {currentLevel === 'larva' ? '🐛' : currentLevel === 'pupa' ? '🐛' : currentLevel === 'imago' ? '🦋' : '👻'}
+                <div className="shrink-0 select-none">
+                  <img 
+                    src={`/levels/${currentLevel}.png`} 
+                    alt={meta.label} 
+                    className="h-12 w-12 object-contain drop-shadow-md" 
+                  />
                 </div>
               </div>
 
@@ -367,7 +371,7 @@ export default function EvolveModal({
                   <div className="mb-4 rounded-xl border border-fuchsia-500/25 bg-fuchsia-500/5 p-4 space-y-4">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
-                        <span className="text-xl">👻</span>
+                        <img src="/levels/ghost.png" alt="Ghost" className="h-8 w-8 object-contain" />
                         <span className="text-base font-bold text-fuchsia-300">Become Ghost</span>
                       </div>
                       <div className="text-right">
@@ -502,7 +506,7 @@ export default function EvolveModal({
 
                 {/* Soulbound badge */}
                 <div className="flex items-center gap-3 rounded-xl border border-fuchsia-500/25 bg-fuchsia-500/5 px-4 py-3">
-                  <span className="text-2xl">🔮</span>
+                  <img src="/levels/ghost.png" alt="Ghost" className="h-10 w-10 object-contain" />
                   <div>
                     <div className="flex items-center gap-2">
                       <span className="text-xs font-bold text-fuchsia-300">Soulbound Identity</span>

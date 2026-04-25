@@ -113,7 +113,7 @@ export function MoltStep3({ source, target, onBack, onSuccess }: MoltStep3Props)
             <div className="text-[9px] text-[var(--muted)] mt-0.5">{source.namespace}</div>
           </div>
           <div className="flex flex-col items-center gap-1">
-            <span className="text-lg">🐛</span>
+            <img src="/molt-icon.png" alt="Molt" className="h-6 w-6 object-contain" />
             <span className="text-[var(--muted)] text-xs">→</span>
           </div>
           <div className="flex-1 rounded-lg border border-amber-500/20 bg-amber-500/8 px-3 py-2.5">
@@ -145,6 +145,15 @@ export function MoltStep3({ source, target, onBack, onSuccess }: MoltStep3Props)
               <span className="font-mono text-emerald-400 text-[10px]">✓ PRESERVED ({currentIPType})</span>
             </div>
           )}
+        </div>
+
+        <div className="rounded-lg border border-amber-500/30 bg-amber-500/10 p-3">
+          <div className="text-[10px] font-bold text-amber-400 flex items-center gap-1.5 mb-1">
+            ⚠️ NEW NFT CONTROLS ALL HISTORY
+          </div>
+          <div className="text-[9px] text-amber-200/80 leading-relaxed">
+            By molting, the <strong>new NFT</strong> becomes the master key to your existing Gnosis Safe, email inbox, and history. If you sell or transfer the new NFT, the new owner gets full access to your past emails.
+          </div>
         </div>
 
         {/* Optional additional .ip mint — suppressed until FEATURES.optionalIPMint = true */}
@@ -204,7 +213,7 @@ export function MoltStep3({ source, target, onBack, onSuccess }: MoltStep3Props)
 
       {execStep === 'molting' && (
         <div className="flex items-center gap-3 rounded-xl border border-amber-500/20 bg-amber-500/5 px-4 py-3">
-          <span className="animate-pulse text-xl">🐛</span>
+          <img src="/molt-icon.png" alt="Molt" className="h-6 w-6 object-contain animate-pulse" />
           <span className="text-sm text-amber-200">Molting... updating beacon on IPFS</span>
         </div>
       )}
@@ -212,7 +221,7 @@ export function MoltStep3({ source, target, onBack, onSuccess }: MoltStep3Props)
       {execStep === 'done' && result && (
         <div className="rounded-xl border border-emerald-500/20 bg-emerald-500/5 p-4 space-y-2">
           <div className="flex items-center gap-2">
-            <span className="text-xl">🦋</span>
+            <img src="/levels/imago.png" alt="Imago" className="h-6 w-6 object-contain" />
             <span className="text-sm font-semibold text-white">Molt complete!</span>
           </div>
           <div className="text-[10px] text-[var(--muted)] space-y-1">

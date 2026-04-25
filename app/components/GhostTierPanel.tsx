@@ -115,7 +115,7 @@ export function GhostTierPanel({ agentName, tld, walletAddress, safeAddress, onU
 
       {/* ── Header ── */}
       <div className="flex items-center gap-3">
-        <span className="text-3xl">👻</span>
+        <img src="/levels/ghost.png" alt="Ghost" className="h-10 w-10 object-contain" />
         <div>
           <h2 className="text-base font-bold text-[#f2eee4]">Ghost Tier</h2>
           <p className="text-xs text-[var(--muted)]">
@@ -167,7 +167,7 @@ export function GhostTierPanel({ agentName, tld, walletAddress, safeAddress, onU
 
           {/* Soulbound badge */}
           <div className="flex items-center gap-3 rounded-xl border border-fuchsia-500/25 bg-fuchsia-500/5 px-4 py-3">
-            <span className="text-2xl">🔮</span>
+            <img src="/levels/ghost.png" alt="Ghost" className="h-10 w-10 object-contain" />
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 flex-wrap">
                 <span className="text-xs font-bold text-fuchsia-300">Soulbound Identity</span>
@@ -349,7 +349,7 @@ export function GhostTierPanel({ agentName, tld, walletAddress, safeAddress, onU
       {/* ── Success ── */}
       {statusMsg && (
         <div className="rounded-xl border border-fuchsia-500/25 bg-fuchsia-500/5 px-4 py-5 text-center space-y-2">
-          <div className="text-2xl">👻</div>
+          <img src="/levels/ghost.png" alt="Ghost" className="mx-auto h-12 w-12 object-contain" />
           <div className="text-sm font-bold text-fuchsia-300">{statusMsg}</div>
           <p className="text-[11px] text-[var(--muted)]">
             Your identity is now soulbound. Arweave archive will initialise on first agent output.

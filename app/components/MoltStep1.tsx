@@ -142,7 +142,12 @@ export function MoltStep1({ onSelect }: MoltStep1Props) {
         <div className="rounded-xl border border-emerald-500/25 bg-emerald-500/5 p-4 space-y-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <span className="text-lg">🤖</span>
+              <img 
+                src={`/levels/${found.tier === 'pro' ? 'imago' : found.tier === 'lite' ? 'pupa' : found.tier}.png`} 
+                alt={found.tier} 
+                className="h-8 w-8 object-contain" 
+                onError={(e) => { (e.target as any).src = '/levels/larva.png' }}
+              />
               <div>
                 <div className="text-sm font-semibold text-white">{found.name}_@nftmail.box</div>
                 <div className="text-[10px] text-[var(--muted)]">{found.namespace} · {found.tier}</div>

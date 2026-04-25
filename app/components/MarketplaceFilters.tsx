@@ -44,10 +44,10 @@ const DOMAIN_TABS: { value: DomainFilter; label: string; color: string; border: 
 
 const LEVEL_TABS: { value: LevelFilter; label: string; icon: string; glow: string }[] = [
   { value: 'all',   label: 'Any level', icon: '', glow: '' },
-  { value: 'larva', label: 'Larva', icon: 'https://gateway.lighthouse.storage/ipfs/bafkreicekhu7rr7noqtv2t4sivy5mqncqgbqnf6cq63dfqyvi5klgk7bv4', glow: 'text-zinc-300 shadow-[0_0_10px_rgba(161,161,170,0.2)]' },
-  { value: 'pupa',  label: 'Pupa',  icon: 'https://gateway.lighthouse.storage/ipfs/bafkreihajbm2nwtuwp4hsgputfqintlw7zxbz4jbpx772ur3rfvfhwadge', glow: 'text-amber-300 shadow-[0_0_10px_rgba(245,158,11,0.2)]' },
-  { value: 'imago', label: 'Imago', icon: 'https://gateway.lighthouse.storage/ipfs/bafkreifm4gtqaxgyb2quyykij4np5naoxzpf5w6za6maywemcvl7tltt7u', glow: 'text-violet-300 shadow-[0_0_10px_rgba(139,92,246,0.2)]' },
-  { value: 'ghost', label: 'Ghost', icon: 'https://gateway.lighthouse.storage/ipfs/bafkreifjrzcptcss7qvdzpphjdvupmfhizjejqyswycrofjlm72tfi43hq', glow: 'text-fuchsia-300 shadow-[0_0_10px_rgba(217,70,239,0.2)]' },
+  { value: 'larva', label: 'Larva', icon: '/levels/larva.png', glow: 'text-zinc-300 shadow-[0_0_10px_rgba(161,161,170,0.2)]' },
+  { value: 'pupa',  label: 'Pupa',  icon: '/levels/pupa.png', glow: 'text-amber-300 shadow-[0_0_10px_rgba(245,158,11,0.2)]' },
+  { value: 'imago', label: 'Imago', icon: '/levels/imago.png', glow: 'text-violet-300 shadow-[0_0_10px_rgba(139,92,246,0.2)]' },
+  { value: 'ghost', label: 'Ghost', icon: '/levels/ghost.png', glow: 'text-fuchsia-300 shadow-[0_0_10px_rgba(217,70,239,0.2)]' },
 ];
 
 const PRIVACY_TABS: { value: PrivacyFilter; label: string; text: string; glow: string }[] = [

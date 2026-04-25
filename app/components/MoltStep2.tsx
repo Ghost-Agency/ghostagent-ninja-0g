@@ -7,10 +7,12 @@ import { useSFX } from '../hooks/useSFX';
 const BLOCKED_TLDS = ['picoclaw.gno'];
 
 const SLD_IMAGES: Record<string, string> = {
-  'molt.gno': 'https://gateway.lighthouse.storage/ipfs/bafkreicyrwnh4oxk4e53kly7kzmlpb345pqr5gd2v5acf4kcyl75e4hjdy',
-  'agent.gno': 'https://gateway.lighthouse.storage/ipfs/bafkreihdpulp5riv3dkhtomi2iurgeypvplhdsi3nnkumzmvx725xc4yly',
-  'openclaw.gno': 'https://gateway.lighthouse.storage/ipfs/bafkreigyk2c7gg5ijwvg4v6pyopcioatdjsfffvnkplgqyc2t3jowe3t7e',
-  'vault.gno': 'https://gateway.lighthouse.storage/ipfs/bafkreibxujpkkylek6uznnl2d2d4vmpxi3aiowxyx2ydf5xo4xexcnksau',
+  'molt.gno': '/sld-images/molt.png',
+  'agent.gno': '/sld-images/agent.png',
+  'openclaw.gno': '/sld-images/openclaw.png',
+  'vault.gno': '/sld-images/vault.png',
+  'nftmail.gno': '/sld-images/nftmail.png',
+  'picoclaw.gno': '/sld-images/picoclaw.png',
 };
 
 const PRESET_IDENTITIES = [
