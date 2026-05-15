@@ -31,10 +31,16 @@ We utilize the `@0glabs/0g-ts-sdk` via a universal adapter in `app/services/zero
 ### B. On-Chain Smart Contract Logging
 We deployed a verification logger to **0G Newton Testnet** to allow trustless fetching of agent configuration state.
 - **Contract Address:** `0x8378054ffFac40f795dbA039156535eb953b3356` (0G Newton Testnet)
+- **0G Flow Contract Address:** `0x0460aA47b41a66694c0a73f667a40812ed49e9dD` (Used by our 0G Storage adapter to submit Merkle roots)
 - **Explorer Link:** [View Contract on 0G Explorer](https://scan-testnet.0g.ai/address/0x8378054ffFac40f795dbA039156535eb953b3356)
 
 ### C. Agent ID (SpaceID)
 We incorporated the official Web3 name SDK to parse and bind `.0g` suffix namespace selections when creating Token Bound Accounts, allowing direct interoperability within the 0G ecosystem.
+
+### D. Live Relay Infrastructure
+To prove GhostAgent is a production-ready protocol (and not a frontend mockup), the system is powered by a live **Cloudflare Workers** backend:
+- `nftmail-email-worker`: Manages ECIES encryption, blinding, and KV state.
+- `email-ingest`: Inbound Mailgun routing connecting real-world emails to the agent's inbox.
 
 ---
 
