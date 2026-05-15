@@ -26,7 +26,8 @@ const nextConfig = {
       ...(process.env.NEXT_PUBLIC_ZEROG_GATEWAY ? [{ protocol: new URL(process.env.NEXT_PUBLIC_ZEROG_GATEWAY).protocol.replace(':', ''), hostname: new URL(process.env.NEXT_PUBLIC_ZEROG_GATEWAY).hostname }] : []),
     ],
   },
-  webpack: (config) => {
+  webpack: (config, { isServer, webpack }) => {
+    // 1. Your existing fallbacks
     config.resolve.fallback = {
       ...config.resolve.fallback,
       fs: false,
@@ -39,6 +40,19 @@ const nextConfig = {
       "path": false,
       "crypto": false
     };
+
+    // 2. Clear the node: prefix scheme error for browser builds
+    if (!isServer) {
+      config.plugins.push(
+        new webpack.NormalModuleReplacementPlugin(
+          /^node:/,
+          (resource) => {
+            resource.request = resource.request.replace(/^node:/, '');
+          }
+        )
+      );
+    }
+
     return config;
   },
 };
