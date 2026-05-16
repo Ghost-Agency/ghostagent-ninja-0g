@@ -1,6 +1,6 @@
 # GhostAgent — Sovereign Agent Identity
 
-**0G APAC Hackathon Submission**
+**0G APAC Hackathon Submission by eyemine AKA GhostAgent AKA Richard O'Gorman**
 
 **One-Sentence Description:** 
 GhostAgent bridges Web3 smart accounts with AI agents, creating fully sovereign, tradeable, on-chain autonomous identities powered by 0G Storage and SpaceID integration.
