@@ -20,7 +20,7 @@ export interface SldVisual {
   accentColor: string;     // hex
   bgColor: string;         // hex
   textColor: string;       // hex — subname overlay colour
-  imageCid: string;        // Lighthouse IPFS CID for base image
+  imageCid: string;        // 0G CID for base image
   emoji: string;
   label: string;
   tagline: string;
@@ -522,9 +522,9 @@ export interface IpaMetadata {
  * @param agentName       e.g. "ghostagent"
  * @param sld             e.g. "molt"
  * @param ownerAddress    minting wallet / Safe address
- * @param imageCid        Lighthouse CID of the composited NFT image (null → use SLD base)
+ * @param *   imageCid        0G CID of the composited NFT image (null → use SLD base)
  * @param imageHash       keccak256 hex of the image (null → use placeholder)
- * @param characterFileCid  Lighthouse CID of GenomeMetadata JSON (null → use SLD base)
+ * @param *   characterFileCid  0G CID of GenomeMetadata JSON (null → use SLD base)
  * @param characterFileHash keccak256 hex of the character file (null → placeholder)
  * @param tld             default "gno"
  */
@@ -587,7 +587,8 @@ const IMAGE_H = 1000;
 const OVERLAY_H = IMAGE_H * 0.25;   // top 25% = 250px
 const BASE_FONT_SIZE = 70;           // pt ≈ px in SVG
 const MAX_CHARS_FULL = 10;           // no scaling below this length
-const GATEWAY = 'https://gateway.lighthouse.storage/ipfs';
+// 0G Gateway for image compositing
+const GATEWAY = process.env.NEXT_PUBLIC_ZEROG_GATEWAY || 'https://indexer-storage-testnet-standard.0g.ai';
 
 /**
  * Returns an SVG string (NOT a data URI) compositing the SLD base image

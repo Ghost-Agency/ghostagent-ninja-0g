@@ -5,7 +5,10 @@ const ZEROG_PRIVATE_KEY = process.env.ZEROG_PRIVATE_KEY || process.env.ZEROG_STO
 const ZEROG_STORAGE_NODE = process.env.ZEROG_STORAGE_NODE || 'https://storage-node-testnet.0g.ai';
 const ZEROG_INDEXER_URL = process.env.ZEROG_INDEXER_URL || 'https://indexer-testnet.0g.ai';
 const ZEROG_FLOW_ADDRESS = process.env.ZEROG_FLOW_ADDRESS || '0x0460aA47b41a66694c0a73f667a40812ed49e9dD'; // standard flow contract
-const ZEROG_GATEWAY = process.env.NEXT_PUBLIC_ZEROG_GATEWAY || process.env.ZEROG_GATEWAY || `${ZEROG_STORAGE_NODE}/download`;
+// 0G Gateway: use indexer (not storage-node/download which doesn't resolve)
+// Standard indexer: https://indexer-storage-testnet-standard.0g.ai/
+// Turbo indexer: https://indexer-storage-testnet-turbo.0g.ai/
+const ZEROG_GATEWAY = process.env.NEXT_PUBLIC_ZEROG_GATEWAY || process.env.ZEROG_GATEWAY || 'https://indexer-storage-testnet-standard.0g.ai';
 
 export async function uploadToZeroG(data: Blob | string | Buffer, filename: string): Promise<{ cid: string; url: string } | null> {
   const isMock = !ZEROG_PRIVATE_KEY || !ZEROG_STORAGE_NODE;
