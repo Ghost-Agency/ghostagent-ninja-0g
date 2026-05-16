@@ -8,7 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test": "vitest run"
+    "test": "vitest run",
+    "upload-to-0g": "npx tsx scripts/upload-images-to-0g.ts"
   },
   "dependencies": {
     "@0glabs/0g-serving-broker": "^0.7.5",
