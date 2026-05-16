@@ -463,7 +463,7 @@ export default function OgNftMoltPage() {
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="https://ipfs.io/ipfs/bafkreiejmu35lnu34e6dm754c6tad34nogywf2oslbql6lzcdpz4acxjue" alt="BYO NFT Molt" className="h-28 w-28 shrink-0 rounded-xl border border-fuchsia-500/40 object-contain" />
         <div>
-          <h1 className="pl-1 text-2xl font-bold text-[#f2eee4]">BYO NFT Molt</h1>
+          <h1 className="pl-1 text-2xl font-bold text-[#f2eee4]">Pair an NFT with an agent ID</h1>
           <p className="mt-1 pl-1 text-sm text-[var(--muted)]">Overlay an NFT you own — ENS, Chonk, or Verified Collection — onto your GhostAgent identity</p>
         </div>
       </div>

@@ -37,24 +37,24 @@ export default function Home() {
               <img
                 src={GHOST_LOGO}
                 alt="GhostAgent logo"
-                className="relative z-10 h-40 w-40 object-contain drop-shadow-[0_0_35px_rgba(217,119,6,0.8)] filter contrast-125 saturate-150"
+                className="relative z-10 h-40 w-40 object-contain drop-shadow-[0_0_35px_rgba(217,119,6,0.8)]"
               />
             </motion.div>
             
             <h1
-              className="text-3xl md:text-5xl uppercase tracking-[0.2em] mt-6 relative"
+              className="text-3xl md:text-5xl uppercase tracking-[0.12em] mt-6 relative"
               style={{ fontFamily: 'Ayuthaya, serif', color: '#f5f3e9' }}
             >
               GHOSTAGENT NINJA
             </h1>
           </div>
           
-          <div className="space-y-4 max-w-xl relative mt-2">
+          <div className="space-y-2 max-w-xl relative mt-1">
             <div className="absolute -inset-4 bg-black/50 blur-xl rounded-full -z-10"></div>
-            <h2 className="text-xl md:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-gray-300 to-gray-500 tracking-wide uppercase font-mono">
+            <h2 className="text-xl md:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-gray-300 to-gray-500 tracking-wide uppercase font-mono leading-tight">
               Non-custodial agent identity
             </h2>
-            <p className="text-sm md:text-base text-gray-400 leading-relaxed font-light">
+            <p className="text-sm md:text-base text-gray-400 leading-snug font-light">
               Deploy your agent to create a persistent identity vault natively unified across <span className="text-emerald-400 font-mono font-bold drop-shadow-[0_0_5px_rgba(16,185,129,0.5)]">0G Network</span>. 
               The Smart Account is the key — transfer it to transfer absolute structural control.
             </p>
