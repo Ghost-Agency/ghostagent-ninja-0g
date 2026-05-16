@@ -42,13 +42,10 @@ export default function Home() {
             </motion.div>
             
             <h1
-              className="text-5xl md:text-7xl font-bold uppercase tracking-tight mt-6 relative"
-              style={{ fontFamily: 'Ayuthaya, serif' }}
+              className="text-3xl md:text-5xl uppercase tracking-[0.2em] mt-6 relative"
+              style={{ fontFamily: 'Ayuthaya, serif', color: '#f5f3e9' }}
             >
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-100 via-amber-400 to-amber-700 drop-shadow-lg">
-                GHOSTAGENT
-              </span>
-              <span className="text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.5)]">.NINJA</span>
+              GHOSTAGENT NINJA
             </h1>
           </div>
           
