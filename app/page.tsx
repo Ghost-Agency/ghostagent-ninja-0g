@@ -6,6 +6,10 @@ import { useSFX } from './hooks/useSFX';
 
 const GHOST_LOGO = '/ghost-logo.png';
 
+// DEBUG: Check Privy env var
+const DEBUG_APP_ID = typeof window !== 'undefined' ? process.env.NEXT_PUBLIC_PRIVY_APP_ID : 'server';
+console.log('Privy App ID:', DEBUG_APP_ID?.slice(0, 4) + '...');
+
 export default function Home() {
   const { playClick, playSuccess } = useSFX();
 
